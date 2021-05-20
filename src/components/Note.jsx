@@ -1,10 +1,16 @@
 import React from "react";
 
-function Note() {
+function Note({title, content, id, onRemove}) {
+
+    function eliminateNote(){
+        onRemove(id)
+    }
+
     return (
         <div className = "note">
-            <h1>Do homework</h1>
-            <p>Finish homework before bed and Wrap it up in the bag</p>
+            <h1>{title}</h1>
+            <p>{content}</p>
+            <button onClick={eliminateNote}>Delete</button>
         </div>
 
     );
