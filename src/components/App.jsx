@@ -11,6 +11,7 @@ function App() {
     setNotes(prevValues => {
       return [...prevValues, newNote]
     })
+    console.log(notes)
   }
 
   function removeNote(id) {
@@ -25,7 +26,7 @@ function App() {
     <div>
       <Header />
       <CreateNote onSaveData={addNote} />
-      {notes.map((note, index) => <Note id={index} key={index} title={note.title} content={note.content} onRemove={removeNote} />)}
+      {notes.map((note, index) => <Note id={index} key={index} title={note.title} content={note.content} date={note.date} onRemove={removeNote} />)}
       <Footer />
     </div>
   );
