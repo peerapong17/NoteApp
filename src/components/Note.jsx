@@ -1,6 +1,7 @@
 import React from "react";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,35 +11,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Note({ title, content, id, onRemove, date }) {
+function Note({ title, content, id, onRemove, date, onEdit}) {
     const classes = useStyles();
 
-    function eliminateNote() {
-        onRemove(id)
-    }
-
-    function setMonth(pickedDate){
-        if(pickedDate === 0){
+    function setMonth(pickedDate) {
+        if (pickedDate === 0) {
             return "January"
-        } else if (pickedDate === 1){
+        } else if (pickedDate === 1) {
             return "February"
-        } else if (pickedDate === 2){
+        } else if (pickedDate === 2) {
             return "March"
-        } else if (pickedDate === 3){
+        } else if (pickedDate === 3) {
             return "April"
-        } else if (pickedDate === 4){
+        } else if (pickedDate === 4) {
             return "May"
-        } else if (pickedDate === 5){
+        } else if (pickedDate === 5) {
             return "June"
-        } else if (pickedDate === 6){
+        } else if (pickedDate === 6) {
             return "July"
-        } else if (pickedDate === 7){
+        } else if (pickedDate === 7) {
             return "August"
-        } else if (pickedDate === 8){
+        } else if (pickedDate === 8) {
             return "September"
-        } else if (pickedDate === 9){
+        } else if (pickedDate === 9) {
             return "October"
-        } else if (pickedDate === 10){
+        } else if (pickedDate === 10) {
             return "November"
         } else {
             return "December"
@@ -55,9 +52,18 @@ function Note({ title, content, id, onRemove, date }) {
                 color="secondary"
                 className={classes.button}
                 startIcon={<DeleteIcon />}
-                onClick={eliminateNote}
+                onClick={()=>onRemove(id)}
             >
                 Delete
+      </Button>
+            <Button
+                variant="contained"
+                color="inherit"
+                className={classes.button}
+                startIcon={<EditIcon />}
+                onClick={()=>onEdit(id)}
+            >
+                Edit
       </Button>
         </div>
 
