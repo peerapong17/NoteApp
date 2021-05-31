@@ -1,4 +1,3 @@
-import { ControlCameraOutlined } from "@material-ui/icons";
 import React, { useState } from "react";
 import CreateNote from "./CreateNote";
 import Footer from "./Footer";
@@ -7,7 +6,6 @@ import Note from "./Note";
 
 function App() {
   const [notes, setNotes] = useState([])
-  const [editDiary, setEditDiary] = useState([])
 
   const [input, setInput] = useState({
     title: '',
@@ -64,8 +62,8 @@ function App() {
         return index === id;
       })
     })
-    setNotes(prevValues => {
-      return prevValues.filter((note, index) => {
+    setNotes(prev => {
+      return prev.filter((note, index) => {
         return index !== id;
       })
     })
