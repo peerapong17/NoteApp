@@ -1,10 +1,15 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 
 function Header() {
     return (
         <header>
-            <h1>Keeper App</h1>
+            <Link to="/"><h3>Keeper App</h3></Link>
+            <div>
+                <Link to="/">Home</Link>
+                <Link to="/create">Todo</Link>
+            </div>
         </header>
     );
 }

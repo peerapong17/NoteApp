@@ -3,79 +3,41 @@ import CreateNote from "./CreateNote";
 import Footer from "./Footer";
 import Header from "./Header";
 import Note from "./Note";
+import DetailNote from "./Detail";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 function App() {
-  const [notes, setNotes] = useState([])
-
-  const [input, setInput] = useState({
-    title: '',
-    content: '',
-    date: new Date('2020-05-24T21:11:54')
-  })
-
-  function removeNote(id) {
-    setNotes(prevValues => {
-      return prevValues.filter((note, index) => {
-        return index !== id;
-      })
-    })
-  }
-
-  function eventHandler(e) {
-    const { name, value } = e.target;
-    setInput(prevValue => {
-      return {
-        ...prevValue,
-        [name]: value
-      }
-    })
-  }
-
-  const handleDateChange = (date) => {
-    setInput(prevValue => {
-      return {
-        ...prevValue,
-        date: date
-      }
-    });
-  };
-
-  function clickEventHandler(e) {
-    e.preventDefault()
-    if (!input.title.trim() || !input.content.trim()) {
-      alert("Have no Information!!!")
-    } else {
-      setNotes(prevValues => {
-        return [...prevValues, input]
-      })
-    }
-    setInput({
-      title: "",
-      content: "",
-      date: new Date('2020-05-24T21:11:54')
-    })
-  }
-
-  function editNote(id) {
-    setInput(prevValues => {
-      return notes.find((note, index) => {
-        return index === id;
-      })
-    })
-    setNotes(prev => {
-      return prev.filter((note, index) => {
-        return index !== id;
-      })
-    })
-  }
+  const notes = useSelector((state) => state.note.notes);
 
   return (
-    <div>
-      <Header />
-      <CreateNote onChange={eventHandler} onClick={clickEventHandler} onDateChange={handleDateChange} data={input} />
-      {notes.map((note, index) => <Note id={index} key={index} title={note.title} content={note.content} date={note.date} onRemove={removeNote} onEdit={editNote} />)}
-      <Footer />
-    </div>
+    <Router>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            {notes.map((note) => (
+              <Note
+                id={note.id}
+                key={note.id}
+                title={note.title}
+                content={note.content}
+              // date={note.date}
+              />
+            ))}
+          </Route>
+          <Route exact path="/create">
+            <CreateNote />
+          </Route>
+          <Route exact path="/detail">
+            <DetailNote />
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
+
   );
 }
 

@@ -9,19 +9,37 @@ html {
 body {
   background: #eee;
   padding: 0 16px;
+  height: 100vh;
+  width: 100%;
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   background-color: #f5ba13;
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
-header h1 {
+header h1{
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+}
+
+header a{
+  color: #fff;
+  font-family: "McLaren", cursive;
+  font-weight: 100;
+  font-size: 2em;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+header a:hover{
+  background-color: rgb(255, 115, 0);
 }
 
 footer {
@@ -55,3 +73,12 @@ footer p {
   word-wrap: break-word;
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-btn {
+  width: 480px;
+}

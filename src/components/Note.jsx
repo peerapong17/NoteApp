@@ -3,6 +3,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from "react-redux";
+import { onEdit, onDelete } from "../redux/reducer";
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -11,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Note({ title, content, id, onRemove, date, onEdit}) {
+function Note({ title, content, id}) {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     function setMonth(pickedDate) {
         if (pickedDate === 0) {
@@ -42,29 +47,37 @@ function Note({ title, content, id, onRemove, date, onEdit}) {
         }
     }
 
+    const onDeleteHandler = (e) => {
+        e.preventDefault();
+        dispatch(onDelete(id));
+    }
+
+    const onEditHandler = (e) => {
+        dispatch(onEdit(id));
+        history.push('/create')
+    }
+
     return (
         <div className="note">
             <h1>{title}</h1>
             <p>{content}</p>
-            <p>{date.getDate()} {setMonth(date.getMonth())} {date.getFullYear()}</p>
+            {/* <p>{date.getDate()} {setMonth(date.getMonth())} {date.getFullYear()}</p> */}
             <Button
                 variant="contained"
                 color="secondary"
                 className={classes.button}
                 startIcon={<DeleteIcon />}
-                onClick={()=>onRemove(id)}
+                onClick={onDeleteHandler}
             >
-                Delete
-      </Button>
+            </Button>
             <Button
                 variant="contained"
                 color="inherit"
                 className={classes.button}
                 startIcon={<EditIcon />}
-                onClick={()=>onEdit(id)}
+                onClick={onEditHandler}
             >
-                Edit
-      </Button>
+            </Button>
         </div>
 
     );
